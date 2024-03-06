@@ -5,8 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Draudimas extends Model
+class Owner extends Model
 {
     use HasFactory;
     protected $table = 'owners';
+    protected $fillable=['name', 'surname','email','address'];
+
+    public function cars()
+    {
+        return $this->hasMany(Car::class);
+    }
 }
