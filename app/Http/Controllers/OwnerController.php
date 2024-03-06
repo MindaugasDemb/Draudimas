@@ -2,55 +2,55 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Draudimas;
+use App\Models\Owner;
 use Illuminate\Http\Request;
 
-class DraudimasController extends Controller
+class OwnerController extends Controller
 {
     public function create(){
-        return view("draudimas.create");
+        return view("owners.create");
     }
 
     public function store(Request $request){
-        $klientas=new Draudimas();
+        $klientas=new Owner();
         $klientas->name=$request->name;
         $klientas->surname=$request->surname;
         $klientas->phone=$request->phone;
         $klientas->email=$request->email;
         $klientas->address=$request->address;
         $klientas->save();
-        return redirect()->route('draudimas.index');
+        return redirect()->route('owners.index');
     }
 
     public function index(){
 
-        return view('draudimas.index',
+        return view('owners.index',
             [
-                'klientai'=>Draudimas::all()
+                'klientai'=>Owner::with('cars')-> get()
             ]);
     }
 
     public function edit($id){
-        $klientas=Draudimas::find($id);
-        return view('draudimas.edit',
+        $klientas=Owner::find($id);
+        return view('owners.edit',
             [
                 'klientas'=>$klientas
             ]);
     }
 
     public function save($id, Request $request){
-        $klientas=Draudimas::find($id);
+        $klientas=Owner::find($id);
         $klientas->name=$request->name;
         $klientas->surname=$request->surname;
         $klientas->phone=$request->phone;
         $klientas->email=$request->email;
         $klientas->address=$request->address;
         $klientas->save();
-        return redirect()->route('draudimas.index');
+        return redirect()->route('owners.index');
     }
 
     public function delete($id){
-        Draudimas::destroy($id);
-        return redirect()->route('draudimas.index');
+        Owner::destroy($id);
+        return redirect()->route('owners.index');
     }
 }

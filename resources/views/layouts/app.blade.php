@@ -26,10 +26,10 @@
                 </a>
                 <ul class="navbar-nav ">
                     <li class="nav-item">
-                        <a class="nav-link " href="{{ route('draudimas.create') }}">Pridėti</a>
+                        <a class="nav-link " href="{{ route('cars.index') }}">Automobiliai</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="{{ route('draudimas.index') }}">Sąrašas</a>
+                        <a class="nav-link " href="{{ route('owners.index') }}">Klientai</a>
                     </li>
                 </ul>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

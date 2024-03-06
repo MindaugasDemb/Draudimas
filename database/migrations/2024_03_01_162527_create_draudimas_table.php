@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string("name", 32);
             $table->string("surname", 32);
-            $table->string("phone", 16)->nullable()->default(null);
-            $table->string("email", 24)->nullable()->default(null);
-            $table->string("address", 24)->nullable()->default(null);
+            $table->string("phone", 96)->nullable()->default(null);
+            $table->string("email", 32)->nullable()->default(null);
+            $table->string("address", 96)->nullable()->default(null);
             $table->timestamps();
         });
     }

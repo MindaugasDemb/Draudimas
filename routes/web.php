@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DraudimasController;
+use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\CarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,12 +24,15 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('/draudimas/create', [DraudimasController::class,'create'])->name('draudimas.create');
-Route::post('/draudimas/store', [DraudimasController::class, 'store'])->name('draudimas.store');
+Route::get('/owners/create', [OwnerController::class,'create'])->name('owners.create');
+Route::post('/owners/store', [OwnerController::class, 'store'])->name('owners.store');
 
-Route::get('/draudimas', [DraudimasController::class,'index'])->name('draudimas.index');
+Route::get('/owners', [OwnerController::class,'index'])->name('owners.index');
 
-Route::get('/draudimas/{id}/edit',[DraudimasController::class,'edit'])->name('draudimas.edit');
-Route::post('/draudimas/{id}/save',[DraudimasController::class,'save'])->name('draudimas.save');
+Route::get('/owners/{id}/edit',[OwnerController::class,'edit'])->name('owners.edit');
+Route::post('/owners/{id}/save',[OwnerController::class,'save'])->name('owners.save');
 
-Route::get('/draudimas/{id}/delete', [DraudimasController::class, 'delete'])->name('draudimas.delete');
+Route::get('/owners/{id}/delete', [OwnerController::class, 'delete'])->name('owners.delete');
+
+
+Route::resource('cars', CarController::class);
