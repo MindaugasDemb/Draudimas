@@ -53,4 +53,5 @@ class OwnerController extends Controller
         Owner::destroy($id);
         return redirect()->route('owners.index');
     }
+
 }
