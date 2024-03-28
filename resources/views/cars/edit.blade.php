@@ -12,20 +12,27 @@
                         {{ __('El. paštas klausimams') }}: [[mail]]
                     </div>
                     <div class="card-body">
+                        @if($errors->any())
+                            <div class="alert alert-danger">
+                                @foreach($errors->all() as $error)
+                                    <div>{{__($error)}}</div>
+                                @endforeach
+                            </div>
+                        @endif
                         <form method="post" action="{{ route('cars.update', $car)}}">
                             @csrf
                             @method('put')
                             <div class="mb-3">
                                 <label class="form-label">{{ __("Registracijos num.") }}:</label>
-                                <input type="text" class="form-control" name="reg_number" value="{{$car->reg_number}}">
+                                <input type="text" class="form-control @error('reg_number')is-invalid @enderror" name="reg_number" value="{{$car->reg_number}}">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">{{ __("Markė") }}:</label>
-                                <input type="text" class="form-control" name="brand" value="{{$car->brand}}">
+                                <input type="text" class="form-control @error('brand')is-invalid @enderror" name="brand" value="{{$car->brand}}">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">{{ __("Modelis") }}:</label>
-                                <input type="text" class="form-control" name="model" value="{{$car->model}}">
+                                <input type="text" class="form-control @error('model')is-invalid @enderror" name="model" value="{{$car->model}}">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">{{ __("Savininkas") }}:</label>

@@ -42,8 +42,6 @@
                           @endforeach
                           </tbody>
                       </table>
-
-                        [[mail]]
                     </div>
                 </div>
             </div>

@@ -17,7 +17,7 @@ class CarFactory extends Factory
     public function definition(): array
     {
         $reg1=array('ABC','DEF','DRH','KRB','JWF','HDT','MJE','ASD','GHB','URE','AER','UGY');
-        $reg2=array('453','765','465','374','753','752','566','379','942','835','741','652');
+        //$reg2=array('453','765','465','374','753','752','566','379','942','835','741','652');
         $cars=array(
             array('Lancia','Delta'),
             array('Audi','A6'),
@@ -37,7 +37,7 @@ class CarFactory extends Factory
             array('Volkswagen','Golf'),
         );
         $rand_car = array_rand($cars, 1);
-        $rand_reg = $reg1[array_rand($reg1, 1)]." ".$reg2[array_rand($reg2, 1)];
+        $rand_reg = $reg1[array_rand($reg1, 1)]." ".rand(100,999);
         return [
             'reg_number'=>$rand_reg,
             'brand'=>$cars[$rand_car][0],

@@ -49,4 +49,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/owners', [OwnerController::class,'index'])->name('owners.index');
 
-Route::get('setlanguage/{lang}', [\App\Http\Controllers\LangController::class,'setLanguage'])->name('setLanguage');
+Route::get('/setlanguage/{lang}', [\App\Http\Controllers\LangController::class,'setLanguage'])->name('setLanguage');
