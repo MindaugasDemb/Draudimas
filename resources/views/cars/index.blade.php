@@ -18,6 +18,7 @@
                               <th>{{ __("Markė") }}</th>
                               <th>{{ __("Modelis") }}</th>
                               <th>{{ __("Savininkas") }}</th>
+                              <th>{{ __("Nuotraukos") }}</th>
                               <th></th>
                           </tr>
                           </thead>
@@ -28,6 +29,14 @@
                               <td>{{ $car->brand }}</td>
                               <td>{{ $car->model }}</td>
                               <td>{{ $car->owner->name }} {{ $car->owner->surname }}</td>
+                              <td>
+                                  @if ($car->img!=null)
+                                      @foreach( $car->img as $img)
+                                          <a href="{{  route('cars.img', ['id'=>$car->id,'file_hash'=>$img->file,'file_name'=>$img->file_name]) }}" class="btn btn-primary" target="_blank">Atsiusti</a><br>
+                                      @endforeach
+
+                                  @endif
+                              </td>
                               <td style="width: 100px;">
                                   <a href="{{ route('cars.edit', $car) }}" class="btn btn-success">{{ __("Redaguoti") }}</a>
                               </td>

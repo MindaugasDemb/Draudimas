@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ShortCodeController;
+use App\Http\Controllers\ImgController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,12 @@ Route::middleware(['auth'])->group(function ()
 {
     Route::resource('cars', CarController::class)->only(['index']);
     Route::resource('cars', CarController::class)->middleware('admin')->except(['index']);
-    //Route::resource('cars', CarController::class);
+    Route::get('/cars/{id}/{file_hash}/{file_name}/img',[CarController::class, 'img'])->name('cars.img');
+    Route::get('/cars/{id}/{file_hash}/imgDelete',[CarController::class, 'imgDelete'])->name('cars.imgDelete');
+
+    Route::get('/img/{id}/{file_hash}/{file_name}/store', [ImgController::class, 'store'])->name('img.store');
+    Route::get('/img/{id}/{file_hash}/delete', [ImgController::class, 'delete'])->name('img.delete');
+
     Route::get('/owners/create', [OwnerController::class,'create'])->name('owners.create')->middleware('admin');;
     Route::post('/owners/store', [OwnerController::class, 'store'])->name('owners.store')->middleware('admin');
 

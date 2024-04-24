@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('owners', function (Blueprint $table) {
+        Schema::create('imgs', function (Blueprint $table) {
             $table->id();
-            $table->string("name", 32);
-            $table->string("surname", 32);
-            $table->string("phone", 96)->nullable()->default(null);
-            $table->string("email", 32)->nullable()->default(null);
-            $table->string("address", 96)->nullable()->default(null);
+            $table->foreignId('car_id');
+            $table->foreign('car_id')->references('id')->on('cars');
+            $table->string('file',255)->nullable()->default(null);
+            $table->string('file_name',255)->nullable()->default(null);
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('owners');
+        Schema::dropIfExists('imgs');
     }
 };

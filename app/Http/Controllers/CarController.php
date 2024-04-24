@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\Owner;
+use App\Models\Img;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -36,7 +37,7 @@ class CarController extends Controller
     public function index()
     {
         return view('cars.index',[
-            'cars'=>Car::with('owner')->get()
+            'cars'=>Car::with('owner','img')->get()
         ]);
     }
 
@@ -46,7 +47,8 @@ class CarController extends Controller
     public function create()
     {
         return view('cars.create', [
-            'owners'=>Owner::all()
+            'owners'=>Owner::all(),
+            'img'=>Img::all()
         ]);
     }
 
@@ -76,7 +78,8 @@ class CarController extends Controller
     {
         return view('cars.edit',[
             'car'=>$car,
-            'owners'=>Owner::all()
+            'owners'=>Owner::all(),
+            'img'=>Img::all()
         ]);
     }
 
@@ -85,10 +88,23 @@ class CarController extends Controller
      */
     public function update(Request $request, Car $car)
     {
+
         $request->validate($this->validationrules,$this->validationmsg);
         $car->update($request->all());
+
         $car->save();
-        return redirect()->route('cars.index');
+        if ($request->file('img')!==null){
+            $file=$request->file('img');
+            $file->store('/img');
+
+            $file_hash=$file->hashName();
+            $file_name=$file->getClientOriginalName();
+            if($file_hash!=null&&$file_name!=null)
+            return redirect()->route('img.store',['id'=>$car->id,'file_hash'=>$file_hash,'file_name'=>$file_name]);
+            else return redirect()->route('owners.index');
+    }
+        else
+            return redirect()->route('cars.index');
     }
 
     /**
@@ -98,5 +114,13 @@ class CarController extends Controller
     {
         $car->delete();
         return redirect()->route('cars.index');
+    }
+
+    public function img($id,$file_hash,$file_name){
+        return response()->download(storage_path()."/app/img/".$file_hash, $file_name);
+    }
+
+    public function imgDelete($id,$file_hash){
+        return redirect()->route('img.delete',['id'=>$id,'file_hash'=>$file_hash]);
     }
 }

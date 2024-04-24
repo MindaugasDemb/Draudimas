@@ -19,7 +19,7 @@
                                 @endforeach
                             </div>
                         @endif
-                        <form method="post" action="{{ route('cars.update', $car)}}">
+                        <form method="post" action="{{ route('cars.update', $car)}}"  enctype="multipart/form-data">
                             @csrf
                             @method('put')
                             <div class="mb-3">
@@ -43,7 +43,25 @@
                                     @endforeach
                                 </select>
                             </div>
+
+                            @if ($car->img!=null)
+                                @foreach( $car->img as $img)
+                                <div class="mb-3 alert alert-info">
+                                    <img src="{{  route('cars.img', ['id'=>$car->id,'file_hash'=>$img->file,'file_name'=>$img->file_name]) }}" alt="">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a href="{{  route('cars.imgDelete', ['id'=>$img->id,'file_hash'=>$img->file,'file_name'=>$img->file_name]) }}" class="btn btn-danger btn-sm ">Ištrinti</a>
+                                </div>
+                                @endforeach
+
+                            @endif
+
+                            <div class="mb-3">
+                                <label class="form-label">Dokumentai</label>
+                                <input type="file" class="form-control" name="img" >
+                            </div>
+
                             <button class="btn btn-success">{{ __("Išsaugoti") }}</button>
+                        </form>
                     </div>
                 </div>
             </div>
