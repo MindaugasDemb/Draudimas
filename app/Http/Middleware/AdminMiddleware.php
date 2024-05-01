@@ -19,10 +19,10 @@ class AdminMiddleware
         {
             return redirect()->route('login');
         }
-        if ($request->user()->role==0)
-        {
-            return redirect()->back();
-        };
+        //if ($request->user()->role==0)
+        //{
+        //    return redirect()->back();
+        //};
         return $next($request);
     }
 }

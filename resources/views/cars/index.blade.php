@@ -24,6 +24,7 @@
                           </thead>
                           <tbody>
                           @foreach($cars as $car)
+                              @can('view',$car)
                           <tr>
                               <td>{{ $car->reg_number }}</td>
                               <td>{{ $car->brand }}</td>
@@ -38,16 +39,21 @@
                                   @endif
                               </td>
                               <td style="width: 100px;">
+                                  @can('update',$car)
                                   <a href="{{ route('cars.edit', $car) }}" class="btn btn-success">{{ __("Redaguoti") }}</a>
+                                  @endcan
                               </td>
                               <td style="width: 100px;">
+                                  @can('delete',$car)
                                   <form method="post" action="{{ route('cars.destroy', $car) }}">
                                       @csrf
                                       @method("delete")
                                       <button class="btn btn-danger">{{ __("Ištrinti") }}</button>
                                   </form>
+                                  @endcan
                               </td>
                           </tr>
+                              @endcan
                           @endforeach
                           </tbody>
                       </table>

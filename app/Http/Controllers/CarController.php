@@ -74,8 +74,12 @@ class CarController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Car $car)
+    public function edit(Car $car,Request $request)
     {
+        if(!($request->user()->can('update',$car)))
+        {
+            return redirect()->back();
+        }
         return view('cars.edit',[
             'car'=>$car,
             'owners'=>Owner::all(),
@@ -110,8 +114,12 @@ class CarController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Car $car)
+    public function destroy(Car $car, Request $request)
     {
+        if(!($request->user()->can('delete',$car)))
+        {
+            return redirect()->route('cars.index');
+        }
         $car->delete();
         return redirect()->route('cars.index');
     }

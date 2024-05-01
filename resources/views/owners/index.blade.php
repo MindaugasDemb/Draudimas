@@ -25,6 +25,7 @@
                           </thead>
                           <tbody>
                           @foreach($klientai as $klientas)
+                              @can('view',$klientas)
                           <tr>
                               <td>{{ $klientas->name }}</td>
                               <td>{{ $klientas->surname }}</td>
@@ -37,10 +38,15 @@
                                   @endforeach
                               </td>
                               <td>
+                                  @can('update',$klientas)
                                   <a class="btn btn-info" href="{{ route('owners.edit', $klientas->id) }}">{{ __("Redaguoti") }}</a>
+                                  @endcan
+                                  @can('delete',$klientas)
                                   <a class="btn btn-danger" href="{{ route('owners.delete', $klientas->id) }}">{{ __("Ištrinti") }}</a>
+                                  @endcan
                               </td>
                           </tr>
+                              @endcan
                           @endforeach
                           </tbody>
                       </table>

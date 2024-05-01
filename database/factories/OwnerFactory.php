@@ -21,7 +21,8 @@ class OwnerFactory extends Factory
             'surname'=>fake()->lastName,
             'phone'=>fake()->phoneNumber,
             'email'=>fake()->email,
-            'address'=>fake()->address
+            'address'=>fake()->address,
+            'user_id'=>rand(1,3)
         ];
     }
 }

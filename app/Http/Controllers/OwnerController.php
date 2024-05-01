@@ -62,8 +62,12 @@ class OwnerController extends Controller
             ]);
     }
 
-    public function edit($id){
+    public function edit($id, Request $request){
         $klientas=Owner::find($id);
+        if(!($request->user()->can('delete',$klientas)))
+        {
+            return redirect()->route('owners.index');
+        }
         return view('owners.edit',
             [
                 'klientas'=>$klientas
@@ -82,7 +86,12 @@ class OwnerController extends Controller
         return redirect()->route('owners.index');
     }
 
-    public function delete($id){
+    public function delete($id, Request $request){
+        $klientas=Owner::find($id);
+        if(!($request->user()->can('delete',$klientas)))
+        {
+            return redirect()->route('owners.index');
+        }
         Owner::destroy($id);
         return redirect()->route('owners.index');
     }
