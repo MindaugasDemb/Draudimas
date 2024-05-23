@@ -41,6 +41,14 @@
                                 <label class="form-label">{{ __("Adresas") }}:</label>
                                 <input type="text" class="form-control @error('address')is-invalid @enderror" name="address" value="{{old('address')}}">
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label">{{ __("Valdytojas") }}:</label>
+                                <select name="user_id" class="form-select">
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}" @if($user->id==old('user_id')) selected @endif>{{ $user->name }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <button class="btn btn-success">{{ __("Pridėti") }}</button>
                         </form>
                     </div>

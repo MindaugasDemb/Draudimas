@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Owner;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OwnerController extends Controller
@@ -39,7 +40,10 @@ class OwnerController extends Controller
         ];
     }
     public function create(){
-        return view("owners.create");
+        return view("owners.create",
+        [
+        'users'=>User::all()
+        ]);
     }
 
     public function store(Request $request){
@@ -50,6 +54,7 @@ class OwnerController extends Controller
         $klientas->phone=$request->phone;
         $klientas->email=$request->email;
         $klientas->address=$request->address;
+        $klientas->user_id=$request->user_id;
         $klientas->save();
         return redirect()->route('owners.index');
     }
@@ -70,7 +75,8 @@ class OwnerController extends Controller
         }
         return view('owners.edit',
             [
-                'klientas'=>$klientas
+                'klientas'=>$klientas,
+                'users'=>User::all()
             ]);
     }
 
@@ -82,6 +88,7 @@ class OwnerController extends Controller
         $klientas->phone=$request->phone;
         $klientas->email=$request->email;
         $klientas->address=$request->address;
+        $klientas->user_id=$request->user_id;
         $klientas->save();
         return redirect()->route('owners.index');
     }
